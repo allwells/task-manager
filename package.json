@@ -1,0 +1,19 @@
+{
+  "name": "backend-task-manager",
+  "version": "1.0.0",
+  "description": "Backend for Task Manager",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/allwells/backend-task-manager.git"
+  },
+  "author": "Allwell Onen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/allwells/backend-task-manager/issues"
+  },
+  "homepage": "https://github.com/allwells/backend-task-manager#readme"
+}
