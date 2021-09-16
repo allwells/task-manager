@@ -4,7 +4,14 @@
   "description": "Backend for Task Manager",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "build:ui": "rm -rf build && cd ../frontend-task-manager && npm run build && cp -r build ../backend-task-manager && cd ../backend-task-manager",
+    "deploy": "git push heroku master",
+    "deploy:full": "npm run build:ui && git add . && git commit -s -m uibuild && git push && yarn deploy",
+    "logs:prod": "heroku logs --tail",
+    "lint": "eslint .",
+    "test": "NODE_ENV=test jest --verbose --runInBand"
   },
   "repository": {
     "type": "git",
@@ -15,5 +22,24 @@
   "bugs": {
     "url": "https://github.com/allwells/backend-task-manager/issues"
   },
-  "homepage": "https://github.com/allwells/backend-task-manager#readme"
+  "homepage": "https://github.com/allwells/backend-task-manager#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "mongoose": "^6.0.6",
+    "mongoose-unique-validator": "^2.0.3"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.1.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.32.0",
+    "eslint-plugin-jest": "^24.4.0",
+    "jest": "^27.2.0",
+    "nodemon": "^2.0.12",
+    "supertest": "^6.1.6"
+  }
 }
