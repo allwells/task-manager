@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/allwells/backend-task-manager.git"
+    "url": "git+ssh://git@github.com/allwells/task-manager.git"
   },
   "author": "Allwell Onen",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/allwells/backend-task-manager/issues"
+    "url": "https://github.com/allwells/task-manager/issues"
   },
-  "homepage": "https://github.com/allwells/backend-task-manager#readme",
+  "homepage": "https://github.com/allwells/task-manager#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
