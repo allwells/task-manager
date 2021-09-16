@@ -4,8 +4,8 @@
   "description": "Backend for Task Manager",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "clear && node index.js",
+    "dev": "clear && nodemon index.js",
     "build:ui": "rm -rf build && cd ../frontend-task-manager && npm run build && cp -r build ../backend-task-manager && cd ../backend-task-manager",
     "deploy": "git push heroku master",
     "deploy:full": "npm run build:ui && git add . && git commit -s -m uibuild && git push && yarn deploy",
