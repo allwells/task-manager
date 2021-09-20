@@ -3,10 +3,6 @@
   "version": "1.0.0",
   "description": "Backend for Task Manager",
   "main": "index.js",
-  "engines": {
-    "node": "12.x",
-    "npm": "7.x"
-  },
   "scripts": {
     "start": "node index.js",
     "dev": "clear && nodemon index.js",
