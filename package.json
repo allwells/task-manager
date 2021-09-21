@@ -13,7 +13,7 @@
     "inspect": "clear && node --inspect index.js",
     "build:ui": "rm -rf build && cd ../frontend-task-manager && npm run build && cp -r build ../backend-task-manager && cd ../backend-task-manager",
     "deploy": "git push heroku master",
-    "deploy:full": "npm run build:ui && git add . && git commit -s -m uibuild && git push && yarn deploy",
+    "deploy:full": "npm run build:ui && git add . && git commit -s -m uibuild && git push origin master && npm run deploy",
     "logs:prod": "heroku logs --tail",
     "lint": "eslint .",
     "test": "NODE_ENV=test jest --verbose --runInBand"
