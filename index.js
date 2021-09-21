@@ -1,7 +1,9 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
 const morgan = require("morgan");
+const Task = require("./models/task");
 
 morgan.token("body", (request, response) => {
   return JSON.stringify(request.body);
@@ -28,40 +30,27 @@ app.use(
 app.use(cors());
 app.use(express.static("build"));
 
-let tasks = [
-  {
-    task: "Wash the car",
-    id: 1,
-  },
-  {
-    task: "Read the book",
-    id: 2,
-  },
-  {
-    task: "Hit the gym",
-    id: 3,
-  },
-];
-
-const taskID = () => {
-  const max_id = tasks.length > 0 ? Math.max(...tasks.map((tsk) => tsk.id)) : 0;
-  return max_id + 1;
-};
-
 app.get("/", (request, response) => {
   response.send("<h1>Welcome to Task Manager</h1>");
 });
 
 app.get("/api/tasks", (request, response) => {
-  response.json(tasks);
+  Task.find({}).then((result) => {
+    response.json(result);
+  });
 });
 
 app.get("/api/tasks/:id", (request, response) => {
-  const id = Number(request.params.id);
-  const task = tasks.find((tsk) => tsk.id === id);
+  const task = Task.findById(request.params.id);
 
   if (task) {
-    response.json(task);
+    task
+      .then((result) => {
+        response.json(result);
+      })
+      .catch((error) => {
+        console.log(`Error: ${error.message}`);
+      });
   } else {
     response.status(404).end();
   }
@@ -69,36 +58,36 @@ app.get("/api/tasks/:id", (request, response) => {
 
 app.post("/api/tasks/", (request, response) => {
   const body = request.body;
-  const exists = tasks.find((tsk) => tsk.task === body.task);
+  // const exists = tasks.find((tsk) => tsk.task === body.task);
 
-  if (!body.task) {
+  if (body.task === undefined) {
     return response.status(400).json({
       error: "Task missing!",
     });
   }
 
-  if (exists) {
-    return response.status(400).json({
-      error: "Task already exists!",
-    });
-  }
+  // if (exists) {
+  //   return response.status(403).json({
+  //     error: "Task already exists!",
+  //   });
+  // }
 
-  const new_task = {
+  const new_task = new Task({
     task: body.task,
-    id: taskID(),
-  };
+  });
 
-  tasks = tasks.concat(new_task);
-
-  response.json(new_task);
+  new_task.save().then((result) => {
+    response.json(result);
+    console.log(`Task added successfully!`);
+  });
 });
 
 app.delete("/api/tasks/:id", (request, response) => {
-  const id = Number(request.params.id);
-  tasks = tasks.filter((tsk) => tsk.id !== id);
-
-  response.json(tasks);
-  response.status(204).end();
+  Task.findByIdAndDelete(request.params.id).then((result) => {
+    response.json(result);
+    console.log("Task deleted successfully!");
+    response.status(204).end();
+  });
 });
 
 app.use(unknownEndpoint);
