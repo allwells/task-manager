@@ -66,12 +66,6 @@ app.post("/api/tasks/", (request, response) => {
     });
   }
 
-  // if (exists) {
-  //   return response.status(403).json({
-  //     error: "Task already exists!",
-  //   });
-  // }
-
   const new_task = new Task({
     task: body.task,
   });
@@ -84,8 +78,6 @@ app.post("/api/tasks/", (request, response) => {
 
 app.delete("/api/tasks/:id", (request, response) => {
   Task.findByIdAndDelete(request.params.id).then((result) => {
-    response.json(result);
-    console.log("Task deleted successfully!");
     response.status(204).end();
   });
 });
