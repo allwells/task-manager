@@ -4,6 +4,7 @@ const app = express();
 const cors = require("cors");
 const morgan = require("morgan");
 const Task = require("./models/task");
+const errorHandler = require("./utils/middleware");
 
 morgan.token("body", (request, response) => {
   return JSON.stringify(request.body);
@@ -58,7 +59,6 @@ app.get("/api/tasks/:id", (request, response) => {
 
 app.post("/api/tasks/", (request, response) => {
   const body = request.body;
-  // const exists = tasks.find((tsk) => tsk.task === body.task);
 
   if (body.task === undefined) {
     return response.status(400).json({
@@ -83,8 +83,9 @@ app.delete("/api/tasks/:id", (request, response) => {
 });
 
 app.use(unknownEndpoint);
+app.use(errorHandler);
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
